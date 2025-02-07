@@ -1,19 +1,10 @@
-module.exports = hello
-module.exports.getstock = getstock
-module.exports.getcustomerinfo = getcustomerinfo
-
-function hello(item)
-{
+  exports.hello = function() {
     return "Hello" + item;
-}
-function getstock(item,qty)
-{
+  }
+
+  exports.getstock = function(item,qty) {
     return "getstock" +";"+ item+";" + qty;
-}
-function getcustomerinfo(customernumber)
-{
+  }
+  exports.getcustomerinfo = function(customernumber) {
     return "getcustomerino" + customernumber;
-}
-
-
-
+  }
