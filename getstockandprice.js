@@ -2,4 +2,4 @@ function getstock()
 {
     return "getstock";
 }
-module.exports = "getstock"
+module.exports = getstock
