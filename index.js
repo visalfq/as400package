@@ -1,15 +1,11 @@
- function getstock(item,qty) {
-    return "getstock" +";"+ item+";" + qty;
-  }
- function hello(item) {
-    return "Hello" + item;
-  }
-  function getcustomerinfo(customernumber) {
-    return "getcustomerino" + customernumber;
-  }
-
   module.exports = {
-    getstock,
-    hello,
-    getcustomerinfo
+    getstock: function(item,qty) {
+        return "getstock" +";"+ item+";" + qty;
+      },
+    hello: function(item) {
+        return "Hello" + item;
+    },
+    getcustomerinfo: function(customernumber){
+        return "getcustomerino" + customernumber;
+    }
   }
