@@ -1,10 +1,15 @@
-  exports.hello = function() {
-    return "Hello" + item;
-  }
-
-  exports.getstock = function(item,qty) {
+ function getstock(item,qty) {
     return "getstock" +";"+ item+";" + qty;
   }
-  exports.getcustomerinfo = function(customernumber) {
+ function hello(item) {
+    return "Hello" + item;
+  }
+  function getcustomerinfo(customernumber) {
     return "getcustomerino" + customernumber;
+  }
+
+  module.exports = {
+    getstock,
+    hello,
+    getcustomerinfo
   }
