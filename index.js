@@ -1,3 +1,7 @@
+module.exports = hello
+module.exports.getstock = getstock
+module.exports.getcustomerinfo = getcustomerinfo
+
 function hello(item)
 {
     return "Hello" + item;
@@ -11,4 +15,5 @@ function getcustomerinfo(customernumber)
     return "getcustomerino" + customernumber;
 }
 
-module.exports = { hello, getstock, getcustomerinfo };
+
+
