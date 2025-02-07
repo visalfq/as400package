@@ -1,6 +1,6 @@
-function hello()
+function hello(item)
 {
-    return "Hello";
+    return "Hello" + item;
 }
 function getstock(item,qty)
 {
@@ -11,4 +11,4 @@ function getcustomerinfo(customernumber)
     return "getcustomerino" + customernumber;
 }
 
-module.exports = {hello,getstock,getcustomerinfo};
+module.exports = { hello, getstock, getcustomerinfo };
