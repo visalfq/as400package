@@ -2,7 +2,7 @@ function getstock(item,qty) {
     return "getstock" +";"+ item+";" + qty;
   }
        function hellon(item) {
-        return "Hellon" + item;
+        return "Hellonn" + item;
     }
     function getcustomerinfo(customernumber){
         return "getcustomerino" + customernumber;
