@@ -1,0 +1,22 @@
+{
+  "name": "as400package",
+  "version": "1.0.0",
+  "description": "AS 400 package for functions (e.g. GetStockAndPrice)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/visalfq/as400package.git"
+  },
+  "keywords": [
+    "AS400package"
+  ],
+  "author": "Vishal Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/visalfq/as400package/issues"
+  },
+  "homepage": "https://github.com/visalfq/as400package#readme"
+}
