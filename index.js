@@ -34,7 +34,7 @@ function getstock(item,qty) {
           "Pprc": "",
           "Kitm": "",
           "Kuom": "",
-          "Shipto": input["shipToNumber"],
+          "Shipto": shiptonumber,
           "Cucst": ""
         }
         params.Cmp = params.Cmp.toString().padStart(3, "0");
