@@ -7,7 +7,7 @@ function getstock(item,qty) {
     function getcustomerinfo(customernumber){
         return "getcustomerino" + customernumber;
     }
-    function getstockandprice(customernumber,shiptonumber,item,qty) {
+    function getstockandprice(pjs,customernumber,shiptonumber,item,qty) {
         const moment = require('moment');
         const params = {
           "Cmp": 1,
