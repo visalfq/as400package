@@ -103,7 +103,7 @@ function getstock(item,qty) {
         pjs.call("COGTPRB", params["Cmp"], params["Cust"], params["Item"], params["Loc"], params["Bpcd"],params["Qty"],params["Date"], params["Pric"]);
 
         outPrice =params["Pric"];// pjs.get("parm8");
-        return "getstock" +";"+ customer + "," + shiptonumber + "," +  item+";" + qty + "," + outPrice;
+        return "getstock" +";"+ customernumber + "," + shiptonumber + "," +  item+";" + qty + "," + outPrice;
       }
  
 exports.getstock = getstock;
