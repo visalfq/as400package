@@ -8,44 +8,48 @@ function getstock(item,qty) {
         return "getcustomerino" + customernumber;
     }
     function getstockandprice(pjs,customernumber,shiptonumber,item,qty) {
-        const moment = require('moment');
-        const params = {
-          "Cmp": 1,
-          "Cust": customernumber,
-          "Item": item,
-          "Loc": shiptonumber,
-          "Bpcd": "",
-          "Qty": qty,
-          "Date": null,
-          "Pric": "",
-          "Cost": "",
-          "Rebt": "",
-          "Dsc": "",
-          "Uom": null,
-          "Cont": "",
-          "Psrc": "",
-          "Apric": "",
-          "In01": "",
-          "Ord": 0,
-          "Bocd": 0,
-          "Line": 0,
-          "Crcd": "",
-          "Source": "",
-          "Pprc": "",
-          "Kitm": "",
-          "Kuom": "",
-          "Shipto": shiptonumber,
-          "Cucst": ""
-        }
-        params.Cmp = params.Cmp.toString().padStart(3, "0");
-        params.Cust = params.Cust.toString().padStart(7, "0");
-        params.Loc = params.Loc.toString().padEnd(4, " ");
-        params.Qty = (params.Qty * 100).toString().padStart(11, "0");
-        
-        if(params.Date == null){
-          params.Date = moment().format('YYYYMMDD');
-        }
-        var outPrice;
+      var outPrice;
+      var customernumber1=customernumber;
+      var shiptonumber1=shiptonumber;
+      var item1=item;
+      var qty1=qty;
+      const moment = require('moment');
+              const params = {
+                "Cmp": 1,
+                "Cust": customernumber1,
+                "Item": item1,
+                "Loc": shiptonumber1,
+                "Bpcd": "",
+                "Qty": qty1,
+                "Date": null,
+                "Pric": "",
+                "Cost": "",
+                "Rebt": "",
+                "Dsc": "",
+                "Uom": null,
+                "Cont": "",
+                "Psrc": "",
+                "Apric": "",
+                "In01": "",
+                "Ord": 0,
+                "Bocd": 0,
+                "Line": 0,
+                "Crcd": "",
+                "Source": "",
+                "Pprc": "",
+                "Kitm": "",
+                "Kuom": "",
+                "Shipto": shiptonumber1,
+                "Cucst": ""
+              }
+              params.Cmp = params.Cmp.toString().padStart(3, "0");
+              params.Cust = params.Cust.toString().padStart(7, "0");
+              params.Loc = params.Loc.toString().padEnd(4, " ");
+              params.Qty = (params.Qty * 100).toString().padStart(11, "0");
+              
+              if(params.Date == null){
+                params.Date = moment().format('YYYYMMDD');
+              }
         pjs.define("parm1", { type: "char", length: 3 });
         pjs.define("parm2", { type: "char", length: 7 });
         pjs.define("parm3", { type: "char", length: 20 });
@@ -72,7 +76,7 @@ function getstock(item,qty) {
         pjs.define("parm24", { type: "char", length: 3 });
         pjs.define("parm25", { type: "char", length: 7 });
         pjs.define("parm26", { type: "char", length: 11 });
-
+      
         pjs.set("parm1", params["Cmp"]);
         pjs.set("parm2", params["Cust"]);
         pjs.set("parm3", params["Item"]);
@@ -98,12 +102,11 @@ function getstock(item,qty) {
         pjs.set("parm24", params["Kuom"]);
         pjs.set("parm25", params["Shipto"]);
         pjs.set("parm26", params["Cucst"]);
-
-        pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"));
-        //pjs.call("COGTPRB", params["Cmp"], params["Cust"], params["Item"], params["Loc"], params["Bpcd"],params["Qty"],params["Date"], params["Pric"]);
-
-        outPrice =pjs.get("parm8");
-        return "getstock" +";"+ customernumber + "," + shiptonumber + "," +  item+";" + qty + "," + outPrice;
+      
+        pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"), pjs.refParm("parm9"), pjs.refParm("parm10"), pjs.refParm("parm11"), pjs.refParm("parm12"), pjs.refParm("parm13"), pjs.refParm("parm14"), pjs.refParm("parm15"), pjs.refParm("parm16"), pjs.refParm("parm17"), pjs.refParm("parm18"), pjs.refParm("parm19"), pjs.refParm("parm20"), pjs.refParm("parm21"), pjs.refParm("parm22"), pjs.refParm("parm23"), pjs.refParm("parm24"), pjs.refParm("parm25"), pjs.refParm("parm26"));
+      
+        outPrice = pjs.get("parm8");
+        return outPrice;
       }
  
 exports.getstock = getstock;
