@@ -7,7 +7,7 @@ function getstock(item,qty) {
     function getcustomerinfo(customernumber){
         return "getcustomerino" + customernumber;
     }
-    function getstockandprice1(pjs,customernumber,shiptonumber,item,qty) {
+    function getstockandprice(pjs,customernumber,shiptonumber,item,qty) {
       var outPrice="";
       var customernumber1=customernumber;
       var shiptonumber1=shiptonumber;
