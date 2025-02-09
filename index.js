@@ -1,3 +1,4 @@
+const pjs = require('profoundjs');
 
 function getstock(item,qty) {
     return "getstock" +";"+ item+";" + qty;
@@ -15,7 +16,7 @@ function getstock(item,qty) {
       var item1=item;
       var qty1=qty;
       const moment = require('moment');
-      const pjs = require('profoundjs');
+      
 
               const params = {
                 "Cmp": 1,
