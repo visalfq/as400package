@@ -1,6 +1,6 @@
 {
   "name": "as400package",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "AS 400 package for functions (e.g. GetStockAndPrice)",
   "main": "index.js",
   "scripts": {
