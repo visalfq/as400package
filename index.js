@@ -7,14 +7,13 @@ function getstock(item,qty) {
     function getcustomerinfo(customernumber){
         return "getcustomerino" + customernumber;
     }
-    function getstockandprice(customernumber,shiptonumber,item,qty) {
+    async function getstockandprice(customernumber,shiptonumber,item,qty) {
       var outPrice="";
       var customernumber1=customernumber;
       var shiptonumber1=shiptonumber;
       var item1=item;
       var qty1=qty;
       const moment = require('moment');
-      const pjs = require('profoundjs');
       const params = {
         "Cmp": 1,
         "Cust": customernumber1,
