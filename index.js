@@ -7,7 +7,7 @@ function getstock(item,qty) {
     function getcustomerinfo(customernumber){
         return "getcustomerino" + customernumber;
     }
-    function getstockandprice(pjs,customernumber,shiptonumber,item,qty) {
+    function getstockandprice(customernumber,shiptonumber,item,qty) {
       var outPrice="";
       var customernumber1=customernumber;
       var shiptonumber1=shiptonumber;
@@ -87,7 +87,7 @@ function getstock(item,qty) {
         pjs.set("parm6", params["Qty"]);
         pjs.set("parm7", params["Date"]);
         pjs.set("parm8", outPrice);
-        /*
+        
         pjs.set("parm9", params["Cost"]);
         pjs.set("parm10", params["Rebt"]);
         pjs.set("parm11", params["Dsc"]);
@@ -106,7 +106,7 @@ function getstock(item,qty) {
         pjs.set("parm24", params["Kuom"]);
         pjs.set("parm25", params["Shipto"]);
         pjs.set("parm26", params["Cucst"]);
-      */
+      
         pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"), pjs.refParm("parm9"), pjs.refParm("parm10"), pjs.refParm("parm11"), pjs.refParm("parm12"), pjs.refParm("parm13"), pjs.refParm("parm14"), pjs.refParm("parm15"), pjs.refParm("parm16"), pjs.refParm("parm17"), pjs.refParm("parm18"), pjs.refParm("parm19"), pjs.refParm("parm20"), pjs.refParm("parm21"), pjs.refParm("parm22"), pjs.refParm("parm23"), pjs.refParm("parm24"), pjs.refParm("parm25"), pjs.refParm("parm26"));
         //pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"));
       //return "1";
