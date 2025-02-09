@@ -1,3 +1,5 @@
+const moment = require('moment');
+const pjs = require('profoundjs');
 function getstock(item,qty) {
     return "getstock" +";"+ item+";" + qty;
   }
@@ -13,8 +15,6 @@ function getstock(item,qty) {
       var shiptonumber1=shiptonumber;
       var item1=item;
       var qty1=qty;
-      const moment = require('moment');
-      const pjs = require('profoundjs');
       const params = {
         "Cmp": 1,
         "Cust": customernumber1,
@@ -121,7 +121,6 @@ function getstock(item,qty) {
       var shiptonumber1=shiptonumber;
       var item1=item;
       var qty1=qty;
-      const moment = require('moment');
       const params = {
         "Cmp": 1,
         "Cust": customernumber1,
