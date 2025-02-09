@@ -1,6 +1,6 @@
 {
   "name": "as400package",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "AS 400 package for functions (e.g. GetStockAndPrice)",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/visalfq/as400package/issues"
   },
-  "homepage": "https://github.com/visalfq/as400package#readme"
+  "homepage": "https://github.com/visalfq/as400package#readme",
+  "dependencies": {
+    "profoundjs": "^7.16.0"
+  }
 }
