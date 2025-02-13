@@ -264,15 +264,15 @@ return "Hellonn" + item;
     if (!_record) {
       _error = new Error("Record not found.")
       _success = false;
-      var cn1 = pjs.getConnection(pjs.getDB());
-      var dbname1 = pjs.getDB();
-      customerinfo.push({customer_number:dbname1,customer_name:cn1,ship_to_number:"5",shipping_addresses:shipinfo});
+      //var cn1 = pjs.getConnection(pjs.getDB());
+      //var dbname1 = pjs.getDB();
+      //customerinfo.push({customer_number:dbname1,customer_name:cn1,ship_to_number:"5",shipping_addresses:shipinfo});
     }
     else
     {
-      shipinfo.push({ship_to_no:_record["rmship"],ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
-      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
-      customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
+      //shipinfo.push({ship_to_no:_record["rmship"],ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
+      //state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
+      //customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
       _error="";
       _success=true;
     }
