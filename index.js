@@ -250,18 +250,18 @@ return "Hellonn" + item;
     _record = pjs.data.get(_from, _filter, 1, 0, null, _select);
     _success = true;
 
-    var cn = pjs.getConnection();
+    var cn = pjs.getConnection(pjs.gtDB());
     var dbname = pjs.getDB();
-    customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"1",shipping_addresses:shipinfo});
+    customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
 
   
     // If no record found
     if (!_record) {
       _error = new Error("Record not found.")
       _success = false;
-      var cn = pjs.getConnection();
-      var dbname = pjs.gtDB();
-      customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"1",shipping_addresses:shipinfo});
+      var cn1 = pjs.getConnection(pjs.gtDB());
+      var dbname1 = pjs.gtDB();
+      customerinfo.push({customer_number:dbname1,customer_name:cn1,ship_to_number:"5",shipping_addresses:shipinfo});
     }
     else
     {
