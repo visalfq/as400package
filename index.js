@@ -250,8 +250,13 @@ return "Hellonn" + item;
     _record = pjs.data.get(_from, _filter, 1, 0, null, _select);
     _success = true;
 
+    let data_count1 = pjs.data.getCount("rmcust");
+
+
     var cn = pjs.getConnection(pjs.getDB());
     var dbname = pjs.getDB();
+    shipinfo.push({ship_to_no:data_count1,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
+      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
     customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
 
   
@@ -266,7 +271,7 @@ return "Hellonn" + item;
     else
     {
       shipinfo.push({ship_to_no:_record["rmship"],ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
-      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]})
+      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
       customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
       _error="";
       _success=true;
