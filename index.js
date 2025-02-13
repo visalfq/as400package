@@ -250,7 +250,7 @@ return "Hellonn" + item;
     _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
     _success = true;
 
-    let data_count1 = await pjs.data.getCount("rmcust");
+    let data_count1 = await pjs.data.getCount("varcust");
 
 
     var cn = await pjs.getConnection(pjs.getDB());
