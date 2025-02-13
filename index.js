@@ -247,14 +247,14 @@ return "Hellonn" + item;
     };
     var _select = `rmcust,rmcmp,rmdel,rmloc,rmname,rmship`;
   
-    _record = pjs.data.get(_from, _filter, 1, 0, null, _select);
+    _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
     _success = true;
 
-    let data_count1 = pjs.data.getCount("rmcust");
+    let data_count1 = await pjs.data.getCount("rmcust");
 
 
-    var cn = pjs.getConnection(pjs.getDB());
-    var dbname = pjs.getDB();
+    var cn = await pjs.getConnection(pjs.getDB());
+    var dbname = await pjs.getDB();
     shipinfo.push({ship_to_no:data_count1,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
       state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
     customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
