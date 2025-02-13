@@ -251,7 +251,7 @@ return "Hellonn" + item;
     _success = true;
 
     var cn = pjs.getConnection();
-    var dbname = pjs.gtDB();
+    var dbname = pjs.getDB();
     customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"1",shipping_addresses:shipinfo});
 
   
