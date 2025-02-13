@@ -257,14 +257,13 @@ return "Hellonn" + item;
     let data_count1 = await pjs.data.getCount("varcust");
     lno=4;
 
-    var cn = await pjs.getConnection(pjs.getDB());
     lno=5;
     var dbname = await pjs.getDB();
     lno=6;
     shipinfo.push({ship_to_no:data_count1,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
       state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
       lno=7;
-    customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
+    customerinfo.push({customer_number:dbname,customer_name:"cn",ship_to_number:"4",shipping_addresses:shipinfo});
     lno=8;
   
     // If no record found
@@ -272,7 +271,6 @@ return "Hellonn" + item;
       lno=9;
       _error = new Error("Record not found.")
       _success = false;
-      var cn1 = pjs.getConnection(pjs.getDB());
       lno=10;
       var dbname1 = pjs.getDB();
       lno=11;
