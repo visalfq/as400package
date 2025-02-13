@@ -4,6 +4,7 @@ function hellon(item) {
 return "Hellonn" + item;
 }
   async function getstockandpricemultipleitems(customernumber,shiptonumber,itemlist,qtylist) {
+    var pricesval = new Object();
     var outprice="";
     const items = itemlist.split(","); 
     const qtys = qtylist.split(","); 
@@ -42,7 +43,7 @@ return "Hellonn" + item;
     if(params.Date == null){
       params.Date = moment().format('YYYYMMDD');
     }
-
+  var lno = "1";
     var _success = false;
     var _error = null;
     var _record = null;
@@ -52,9 +53,14 @@ return "Hellonn" + item;
       values: ["1", "1"]
     };
     var _select = `rmcust,rmcmp,rmdel,rmloc,rmname,rmship`;
-    _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
 
+try
+{
+  lno = "2";
+    _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
+    lno = "3";
     await pjs.define("parm1", { type: "char", length: 3 });
+    lno = "4";
     await pjs.define("parm2", { type: "char", length: 7 });
     await pjs.define("parm3", { type: "char", length: 20 });
     await pjs.define("parm4", { type: "char", length: 4 });
@@ -81,7 +87,7 @@ return "Hellonn" + item;
     await pjs.define("parm24", { type: "char", length: 3 });
     await pjs.define("parm25", { type: "char", length: 7 });
     await pjs.define("parm26", { type: "char", length: 11 });
-
+    lno = "5";
     pjs.set("parm1", params["Cmp"]);
     pjs.set("parm2", params["Cust"]);
     pjs.set("parm4", params["Loc"]);
@@ -105,8 +111,9 @@ return "Hellonn" + item;
     pjs.set("parm24", params["Kuom"]);
     pjs.set("parm25", params["Shipto"]);
     pjs.set("parm26", params["Cucst"]);
-    var pricesval = new Object();
+    
     for (let i = 0; i < items.length; i++) {
+      lno = "6";
       pjs.set("parm3", items[i]);
       pjs.set("parm6", qtys[i]);
       pjs.set("parm8", outprice);
@@ -138,6 +145,11 @@ return "Hellonn" + item;
       pricesval.is_discontinued = false;
       prices.push(pricesval);
     }
+  }
+  catch(error)
+  {
+    return error+"-" + lno;
+  }
     return prices;
   }
 
