@@ -235,6 +235,7 @@ return "Hellonn" + item;
 
   async function getcustomer(companynumber,customernumber)
   {
+    var lno = 0;
     var _success = false;
     var _error = null;
     let customerinfo = [];
@@ -246,36 +247,54 @@ return "Hellonn" + item;
       values: [customernumber, companynumber]
     };
     var _select = `rmcust,rmcmp,rmdel,rmloc,rmname,rmship`;
-  
+    lno=1;
+    try
+    {
     _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
+    lno=2;
     _success = true;
-
+    lno=3;
     let data_count1 = await pjs.data.getCount("varcust");
-
+    lno=4;
 
     var cn = await pjs.getConnection(pjs.getDB());
+    lno=5;
     var dbname = await pjs.getDB();
+    lno=6;
     shipinfo.push({ship_to_no:data_count1,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
       state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
+      lno=7;
     customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
-
+    lno=8;
   
     // If no record found
     if (!_record) {
+      lno=9;
       _error = new Error("Record not found.")
       _success = false;
-      //var cn1 = pjs.getConnection(pjs.getDB());
-      //var dbname1 = pjs.getDB();
-      //customerinfo.push({customer_number:dbname1,customer_name:cn1,ship_to_number:"5",shipping_addresses:shipinfo});
+      var cn1 = pjs.getConnection(pjs.getDB());
+      lno=10;
+      var dbname1 = pjs.getDB();
+      lno=11;
+      customerinfo.push({customer_number:dbname1,customer_name:lno,ship_to_number:"5",shipping_addresses:shipinfo});
     }
     else
     {
-      //shipinfo.push({ship_to_no:_record["rmship"],ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
-      //state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
-      //customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
+      lno=12;
+
+      shipinfo.push({ship_to_no:lno,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
+      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
+      lno = 13;
+      customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
+      lno = 14;
       _error="";
       _success=true;
     }
+  }
+  catch(error)
+  {
+    customerinfo.push({customer_number:error,customer_name:lno,ship_to_number:"8",shipping_addresses:shipinfo});
+  }
     return customerinfo;
   }
   async function getallitems(code,name,pagenumber,numberofrecords)
