@@ -250,7 +250,7 @@ return "Hellonn" + item;
     _record = pjs.data.get(_from, _filter, 1, 0, null, _select);
     _success = true;
 
-    var cn = pjs.getConnection(pjs.gtDB());
+    var cn = pjs.getConnection(pjs.getDB());
     var dbname = pjs.getDB();
     customerinfo.push({customer_number:dbname,customer_name:cn,ship_to_number:"4",shipping_addresses:shipinfo});
 
@@ -259,8 +259,8 @@ return "Hellonn" + item;
     if (!_record) {
       _error = new Error("Record not found.")
       _success = false;
-      var cn1 = pjs.getConnection(pjs.gtDB());
-      var dbname1 = pjs.gtDB();
+      var cn1 = pjs.getConnection(pjs.getDB());
+      var dbname1 = pjs.getDB();
       customerinfo.push({customer_number:dbname1,customer_name:cn1,ship_to_number:"5",shipping_addresses:shipinfo});
     }
     else
