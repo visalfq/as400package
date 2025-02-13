@@ -42,6 +42,18 @@ return "Hellonn" + item;
     if(params.Date == null){
       params.Date = moment().format('YYYYMMDD');
     }
+
+    var _success = false;
+    var _error = null;
+    var _record = null;
+    var _from = "varcust";
+    var _filter = { 
+      whereClause: `rmcust = ? and rmcmp = ?`,
+      values: ["1", "1"]
+    };
+    var _select = `rmcust,rmcmp,rmdel,rmloc,rmname,rmship`;
+    _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
+
     await pjs.define("parm1", { type: "char", length: 3 });
     await pjs.define("parm2", { type: "char", length: 7 });
     await pjs.define("parm3", { type: "char", length: 20 });
