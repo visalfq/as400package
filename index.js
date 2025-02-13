@@ -98,7 +98,7 @@ return "Hellonn" + item;
       pjs.set("parm3", items[i]);
       pjs.set("parm6", qtys[i]);
       pjs.set("parm8", outprice);
-      pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"), pjs.refParm("parm9"), pjs.refParm("parm10"), pjs.refParm("parm11"), pjs.refParm("parm12"), pjs.refParm("parm13"), pjs.refParm("parm14"), pjs.refParm("parm15"), pjs.refParm("parm16"), pjs.refParm("parm17"), pjs.refParm("parm18"), pjs.refParm("parm19"), pjs.refParm("parm20"), pjs.refParm("parm21"), pjs.refParm("parm22"), pjs.refParm("parm23"), pjs.refParm("parm24"), pjs.refParm("parm25"), pjs.refParm("parm26"));
+      await pjs.call("COGTPRB", pjs.refParm("parm1"), pjs.refParm("parm2"), pjs.refParm("parm3"), pjs.refParm("parm4"), pjs.refParm("parm5"), pjs.refParm("parm6"), pjs.refParm("parm7"), pjs.refParm("parm8"), pjs.refParm("parm9"), pjs.refParm("parm10"), pjs.refParm("parm11"), pjs.refParm("parm12"), pjs.refParm("parm13"), pjs.refParm("parm14"), pjs.refParm("parm15"), pjs.refParm("parm16"), pjs.refParm("parm17"), pjs.refParm("parm18"), pjs.refParm("parm19"), pjs.refParm("parm20"), pjs.refParm("parm21"), pjs.refParm("parm22"), pjs.refParm("parm23"), pjs.refParm("parm24"), pjs.refParm("parm25"), pjs.refParm("parm26"));
       outprice = pjs.get("parm8");
       outprice = (Math.round(outprice * 100) / 1000000).toFixed(2);
       pricesval = new Object();
@@ -250,49 +250,28 @@ return "Hellonn" + item;
     lno=1;
     try
     {
-    _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
-    lno=2;
-    _success = true;
-    lno=3;
-    let data_count1 = await pjs.data.getCount("varcust");
-    lno=4;
-
-    lno=5;
-    var dbname = await pjs.getDB();
-    lno=6;
-    shipinfo.push({ship_to_no:data_count1,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
-      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
-      lno=7;
-    customerinfo.push({customer_number:dbname,customer_name:"cn",ship_to_number:"4",shipping_addresses:shipinfo});
-    lno=8;
-  
-    // If no record found
-    if (!_record) {
-      lno=9;
-      _error = new Error("Record not found.")
-      _success = false;
-      lno=10;
-      var dbname1 = pjs.getDB();
-      lno=11;
-      customerinfo.push({customer_number:dbname1,customer_name:lno,ship_to_number:"5",shipping_addresses:shipinfo});
+      _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
+      lno=2;
+      _success = true;
+      // If no record found
+      if (!_record) {
+        lno=9;
+        _error = new Error("Record not found.")
+        _success = false;
+      }
+      else
+      {
+        shipinfo.push({ship_to_no:_record["rmship"],ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
+        state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
+        customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
+        _error="";
+        _success=true;
+      }
     }
-    else
+    catch(error)
     {
-      lno=12;
-
-      shipinfo.push({ship_to_no:lno,ship_to_name:_record["rmship"],address1:_record["rmship"],address2:_record["rmship"],city:_record["rmship"],
-      state:_record["rmship"],zip_code:_record["rmship"],is_default:_record["rmship"]});
-      lno = 13;
-      customerinfo.push({customer_number:_record["rmcust"],customer_name:_record["rmname"],ship_to_number:_record["rmship"],shipping_addresses:shipinfo});
-      lno = 14;
-      _error="";
-      _success=true;
+      customerinfo.push({customer_number:error,customer_name:lno,ship_to_number:"8",shipping_addresses:shipinfo});
     }
-  }
-  catch(error)
-  {
-    customerinfo.push({customer_number:error,customer_name:lno,ship_to_number:"8",shipping_addresses:shipinfo});
-  }
     return customerinfo;
   }
   async function getallitems(code,name,pagenumber,numberofrecords)
