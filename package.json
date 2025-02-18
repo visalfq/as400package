@@ -1,9 +1,10 @@
 {
   "name": "as400package",
-  "version": "1.0.69",
+  "version": "1.0.71",
   "description": "AS 400 package for functions (e.g. GetStockAndPrice)",
   "main": "index.mjs",
   "module": "index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./index.mjs"

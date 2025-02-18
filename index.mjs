@@ -1,5 +1,5 @@
-import pjs from 'profoundjs'
-import moment from 'moment'
+import pjs from 'profoundjs';
+import moment from 'moment';
 export async function hellomjs(item) {
 return "Hellonn" + item;
 }
@@ -42,91 +42,99 @@ return "Hellonn" + item;
     if(params.Date == null){
       params.Date = moment().format('YYYYMMDD');
     }
-    pjs.define("parm1", { type: "char", length: 3 });
-    pjs.define("parm2", { type: "char", length: 7 });
-    pjs.define("parm3", { type: "char", length: 20 });
-    pjs.define("parm4", { type: "char", length: 4 });
-    pjs.define("parm5", { type: "char", length: 2 });
-    pjs.define("parm6", { type: "char", length: 9 });
-    pjs.define("parm7", { type: "char", length: 8 });
-    pjs.define("parm8", { type: "char", length: 11 });
-    
-    pjs.define("parm9", { type: "char", length: 11 });
-    pjs.define("parm10", { type: "char", length: 11 });
-    pjs.define("parm11", { type: "char", length: 3 });
-    pjs.define("parm12", { type: "char", length: 3 });
-    pjs.define("parm13", { type: "char", length: 1 });
-    pjs.define("parm14", { type: "char", length: 15 });
-    pjs.define("parm15", { type: "char", length: 1 });
-    pjs.define("parm16", { type: "char", length: 1 });
-    pjs.define("parm17", { type: "packed decimal", length: 9, decimals: 0 });
-    pjs.define("parm18", { type: "packed decimal", length: 3, decimals: 0 });
-    pjs.define("parm19", { type: "packed decimal", length: 4, decimals: 0 });
-    pjs.define("parm20", { type: "char", length: 3 });
-    pjs.define("parm21", { type: "char", length: 1 });
-    pjs.define("parm22", { type: "char", length: 1 });
-    pjs.define("parm23", { type: "char", length: 20 });
-    pjs.define("parm24", { type: "char", length: 3 });
-    pjs.define("parm25", { type: "char", length: 7 });
-    pjs.define("parm26", { type: "char", length: 11 });
 
-    pjs.set("parm1", params["Cmp"]);
-    pjs.set("parm2", params["Cust"]);
-    pjs.set("parm4", params["Loc"]);
-    pjs.set("parm5", params["Bpcd"]);
-    pjs.set("parm7", params["Date"]);
-    pjs.set("parm9", params["Cost"]);
-    pjs.set("parm10", params["Rebt"]);
-    pjs.set("parm11", params["Dsc"]);
-    pjs.set("parm12", params["Uom"]);
-    pjs.set("parm13", params["Cont"]);
-    pjs.set("parm14", params["Psrc"]);
-    pjs.set("parm15", params["Apric"]);
-    pjs.set("parm16", params["In01"]);
-    pjs.set("parm17", params["Ord"]);
-    pjs.set("parm18", params["Bocd"]);
-    pjs.set("parm19", params["Line"]);
-    pjs.set("parm20", params["Crcd"]);
-    pjs.set("parm21", params["Source"]);
-    pjs.set("parm22", params["Pprc"]);
-    pjs.set("parm23", params["Kitm"]);
-    pjs.set("parm24", params["Kuom"]);
-    pjs.set("parm25", params["Shipto"]);
-    pjs.set("parm26", params["Cucst"]);
-    var pricesval = new Object();
-    for (let i = 0; i < items.length; i++) {
-      pjs.set("parm3", items[i]);
-      pjs.set("parm6", qtys[i]);
-      pjs.set("parm8", outprice);
-      call("COGTPRB", refParm("parm1"), refParm("parm2"), refParm("parm3"), refParm("parm4"), refParm("parm5"), refParm("parm6"), refParm("parm7"), refParm("parm8"), refParm("parm9"), refParm("parm10"), refParm("parm11"), refParm("parm12"), refParm("parm13"), refParm("parm14"), refParm("parm15"), refParm("parm16"), refParm("parm17"), refParm("parm18"), refParm("parm19"), refParm("parm20"), refParm("parm21"), refParm("parm22"), refParm("parm23"), refParm("parm24"), refParm("parm25"), refParm("parm26"));
-      outprice = pjs.get("parm8");
-      outprice = (Math.round(outprice * 100) / 1000000).toFixed(2);
-      pricesval = new Object();
-      pricesval.item_number = items[i];
-      pricesval.item_name = "";
-      pricesval.vendor_name = "";
-      pricesval.vendor_part_number = "";
-      pricesval.msds_code = "";
-      pricesval.dea_controlled_substance_code = "";
-      pricesval.item_price = outprice;
-      pricesval.unit_of_measure = "";
-      pricesval.is_available = false;
-      pricesval.has_purchase_history = false;
-      pricesval.is_active = false;
-      pricesval.balance_available = 0;
-      pricesval.error_message = "";
-      pricesval.next_qty_break = 0;
-      pricesval.next_qty_break_type = "";
-      pricesval.next_qty_break_price_or_discount = "";
-      pricesval.image_ur_ls = "";
-      pricesval.special_code = "";
-      pricesval.item_type = "";
-      pricesval.is_agency = false;
-      pricesval.is_drop_ship = false;
-      pricesval.is_discontinued = false;
-      prices.push(pricesval);
+    try
+    {
+      pjs.define("parm1", { type: "char", length: 3 });
+      pjs.define("parm2", { type: "char", length: 7 });
+      pjs.define("parm3", { type: "char", length: 20 });
+      pjs.define("parm4", { type: "char", length: 4 });
+      pjs.define("parm5", { type: "char", length: 2 });
+      pjs.define("parm6", { type: "char", length: 9 });
+      pjs.define("parm7", { type: "char", length: 8 });
+      pjs.define("parm8", { type: "char", length: 11 });
+      
+      pjs.define("parm9", { type: "char", length: 11 });
+      pjs.define("parm10", { type: "char", length: 11 });
+      pjs.define("parm11", { type: "char", length: 3 });
+      pjs.define("parm12", { type: "char", length: 3 });
+      pjs.define("parm13", { type: "char", length: 1 });
+      pjs.define("parm14", { type: "char", length: 15 });
+      pjs.define("parm15", { type: "char", length: 1 });
+      pjs.define("parm16", { type: "char", length: 1 });
+      pjs.define("parm17", { type: "packed decimal", length: 9, decimals: 0 });
+      pjs.define("parm18", { type: "packed decimal", length: 3, decimals: 0 });
+      pjs.define("parm19", { type: "packed decimal", length: 4, decimals: 0 });
+      pjs.define("parm20", { type: "char", length: 3 });
+      pjs.define("parm21", { type: "char", length: 1 });
+      pjs.define("parm22", { type: "char", length: 1 });
+      pjs.define("parm23", { type: "char", length: 20 });
+      pjs.define("parm24", { type: "char", length: 3 });
+      pjs.define("parm25", { type: "char", length: 7 });
+      pjs.define("parm26", { type: "char", length: 11 });
+
+      pjs.set("parm1", params["Cmp"]);
+      pjs.set("parm2", params["Cust"]);
+      pjs.set("parm4", params["Loc"]);
+      pjs.set("parm5", params["Bpcd"]);
+      pjs.set("parm7", params["Date"]);
+      pjs.set("parm9", params["Cost"]);
+      pjs.set("parm10", params["Rebt"]);
+      pjs.set("parm11", params["Dsc"]);
+      pjs.set("parm12", params["Uom"]);
+      pjs.set("parm13", params["Cont"]);
+      pjs.set("parm14", params["Psrc"]);
+      pjs.set("parm15", params["Apric"]);
+      pjs.set("parm16", params["In01"]);
+      pjs.set("parm17", params["Ord"]);
+      pjs.set("parm18", params["Bocd"]);
+      pjs.set("parm19", params["Line"]);
+      pjs.set("parm20", params["Crcd"]);
+      pjs.set("parm21", params["Source"]);
+      pjs.set("parm22", params["Pprc"]);
+      pjs.set("parm23", params["Kitm"]);
+      pjs.set("parm24", params["Kuom"]);
+      pjs.set("parm25", params["Shipto"]);
+      pjs.set("parm26", params["Cucst"]);
+      var pricesval = new Object();
+      for (let i = 0; i < items.length; i++) {
+        pjs.set("parm3", items[i]);
+        pjs.set("parm6", qtys[i]);
+        pjs.set("parm8", outprice);
+        call("COGTPRB", refParm("parm1"), refParm("parm2"), refParm("parm3"), refParm("parm4"), refParm("parm5"), refParm("parm6"), refParm("parm7"), refParm("parm8"), refParm("parm9"), refParm("parm10"), refParm("parm11"), refParm("parm12"), refParm("parm13"), refParm("parm14"), refParm("parm15"), refParm("parm16"), refParm("parm17"), refParm("parm18"), refParm("parm19"), refParm("parm20"), refParm("parm21"), refParm("parm22"), refParm("parm23"), refParm("parm24"), refParm("parm25"), refParm("parm26"));
+        outprice = pjs.get("parm8");
+        outprice = (Math.round(outprice * 100) / 1000000).toFixed(2);
+        pricesval = new Object();
+        pricesval.item_number = items[i];
+        pricesval.item_name = "";
+        pricesval.vendor_name = "";
+        pricesval.vendor_part_number = "";
+        pricesval.msds_code = "";
+        pricesval.dea_controlled_substance_code = "";
+        pricesval.item_price = outprice;
+        pricesval.unit_of_measure = "";
+        pricesval.is_available = false;
+        pricesval.has_purchase_history = false;
+        pricesval.is_active = false;
+        pricesval.balance_available = 0;
+        pricesval.error_message = "";
+        pricesval.next_qty_break = 0;
+        pricesval.next_qty_break_type = "";
+        pricesval.next_qty_break_price_or_discount = "";
+        pricesval.image_ur_ls = "";
+        pricesval.special_code = "";
+        pricesval.item_type = "";
+        pricesval.is_agency = false;
+        pricesval.is_drop_ship = false;
+        pricesval.is_discontinued = false;
+        prices.push(pricesval);
+      }
+      return prices;
     }
-    return prices;
+    catch(error)
+    {
+        return error.message + ":" + error.name;
+    }
   }
 
   export  async function getstockandprice(customernumber,shiptonumber,item,qty) {
@@ -272,7 +280,7 @@ return "Hellonn" + item;
     }
   catch(error)
   {
-    customerinfo.push({customer_number:"0",customer_name:error,ship_to_number:lno,shipping_addresses:shipinfo});
+    customerinfo.push({customer_number:error.name,customer_name:error.message,ship_to_number:error.stack,shipping_addresses:shipinfo});
   }
     return customerinfo;
   }
@@ -386,9 +394,9 @@ return "Hellonn" + item;
     catch(error)
     {
       products = {
-        "item_number": error,
-        "item_name": error,
-        "vendor_name": "",
+        "item_number": error.message,
+        "item_name": error.name,
+        "vendor_name": error.stack,
         "vendor_part_number": "",
         "msds_code": "",
         "dea_controlled_substance_code": "",
