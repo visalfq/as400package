@@ -277,124 +277,95 @@ return "Hellonn" + item;
   }
 
   async function getallitems(code,name,pagenumber,numberofrecords)
-  {
-    let products ={};
-    try
     {
-      const codes = (code??[])
-      .reduce((a,c)=>{
-        a.push(... c.split(",").map(c=>c.trim()));
-        return a;
-      }, []);
-    const names = (name??[])
-      .reduce((a, n)=>{
-        a.push(... n.split(",").map(n=>n.trim()));
-        return a;
-      }, []);
-    const page = (pagenumber??1) -1;
-    const limit = numberofrecords??100;
-    
-    const params = [];
-    const namesLike = [];
-    const codesIn = [];
-    if(names.length){
-      namesLike.push("and ( 1 = 2 ");
-      const search = names
-        .map(n=>`%${n.trim().toLowerCase()}%`);
-      search.forEach((n=>{
-        namesLike.push(` or lower(it.ICDSC1 || it.ICDSC2 || it.ICDSC3) like ?`)
-      }));
-      namesLike.push(")")
-      params.push(...search);
-    }
-    if(codes.length){
-      codesIn.push("and it.ICITEM in (")
-      codes.forEach(c=>{
-        codesIn.push(" ?,");
-        params.push(c);
-      });
-      codesIn.pop();
-      codesIn.push(" ?)");
-    }
-    params.push(page * limit);
-    params.push(limit);
-    const sql = `
-    select
-    it.ICCMP,  it.ICITEM, it.ICDEL,
-    -- it.ICDSC1, it.ICDSC2, it.ICDSC3,
-    it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name,
-    it.ICDIV,  it.ICCLS,  it.ICSPCE,
-    it.ICIUM, it.ICSUM,
-    case 
-      when it.ICDEL = 'A' then 'true'
-      else 'false'
-    end as active,
-    ifnull(cat.rndcnm,' ') as category,
-    case
-      when ifnull(iex.expre,' ') = ' ' then 'Standard'
-      else 'Medication'
-    end as type,
-    ifnull(pm.j6pl01, 0) as J6PL01,
-    ifnull(@fupn, ' ') as FUPN
-    from   vinitem it                                        
-    left join vardicl cat 
-            on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls)
-    left join viniext iex
-            on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem)
-    left join vinpmat pm 
-            on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem)
-    left join vinupn upn
-            on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)
-    
-    where  it.ICDEL =  'A'
-    ${namesLike.join("")}
-    ${codesIn.join("")}
-    offset ? rows 
-    fetch first ? rows only
-    `
-    products = query(getDB("DB2"),sql,
-    params)
-    .map(r => {return { 
-    "item_number": r.icitem,
-    "item_name": r.name,
-    "vendor_name": "",
-    "vendor_part_number": "",
-    "msds_code": "",
-    "dea_controlled_substance_code": "",
-    "item_price": r["j6pl01"],
-    "unit_of_measure": r.icium,
-    "is_available": r.active,
-    "has_purchase_history": false,
-    "is_active": r.active,
-    "vendor_name": "",
-    "balance_available":0,
-    "error_message": "",
-    "next_qty_break": 0,
-    "vendor_name": "",
-    "next_qty_break_price_or_discount": "",
-    "image_ur_ls": "",
-    "special_code": "",
-    "item_type": "",
-    "error_message": "",
-    "is_agency": false,
-    "is_drop_ship": false,
-    "is_discontinued": false
-    }});
-  }
-  catch(error)
-  {
-    products = {
-      "item_number": "",
-      "item_name": "",
+      let products ={};
+      try
+      {
+        const codes = (code??[])
+        .reduce((a,c)=>{
+          a.push(... c.split(",").map(c=>c.trim()));
+          return a;
+        }, []);
+      const names = (name??[])
+        .reduce((a, n)=>{
+          a.push(... n.split(",").map(n=>n.trim()));
+          return a;
+        }, []);
+      const page = (pagenumber??1) -1;
+      const limit = numberofrecords??100;
+      
+      const params = [];
+      const namesLike = [];
+      const codesIn = [];
+      if(names.length){
+        namesLike.push("and ( 1 = 2 ");
+        const search = names
+          .map(n=>`%${n.trim().toLowerCase()}%`);
+        search.forEach((n=>{
+          namesLike.push(` or lower(it.ICDSC1 || it.ICDSC2 || it.ICDSC3) like ?`)
+        }));
+        namesLike.push(")")
+        params.push(...search);
+      }
+      if(codes.length){
+        codesIn.push("and it.ICITEM in (")
+        codes.forEach(c=>{
+          codesIn.push(" ?,");
+          params.push(c);
+        });
+        codesIn.pop();
+        codesIn.push(" ?)");
+      }
+      params.push(page * limit);
+      params.push(limit);
+      const sql = `
+      select
+      it.ICCMP,  it.ICITEM, it.ICDEL,
+      -- it.ICDSC1, it.ICDSC2, it.ICDSC3,
+      it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name,
+      it.ICDIV,  it.ICCLS,  it.ICSPCE,
+      it.ICIUM, it.ICSUM,
+      case 
+        when it.ICDEL = 'A' then 'true'
+        else 'false'
+      end as active,
+      ifnull(cat.rndcnm,' ') as category,
+      case
+        when ifnull(iex.expre,' ') = ' ' then 'Standard'
+        else 'Medication'
+      end as type,
+      ifnull(pm.j6pl01, 0) as J6PL01,
+      ifnull(@fupn, ' ') as FUPN
+      from   vinitem it                                        
+      left join vardicl cat 
+              on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls)
+      left join viniext iex
+              on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem)
+      left join vinpmat pm 
+              on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem)
+      left join vinupn upn
+              on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)
+      
+      where  it.ICDEL =  'A'
+      ${namesLike.join("")}
+      ${codesIn.join("")}
+      offset ? rows 
+      fetch first ? rows only
+      `
+      products = pjs.query(pjs.getDB("DB2"),sql,
+      params)
+      .map(r => {return { 
+      "item_number": r.icitem,
+      "item_name": r.name,
       "vendor_name": "",
       "vendor_part_number": "",
       "msds_code": "",
       "dea_controlled_substance_code": "",
-      "item_price": "",
-      "unit_of_measure": "",
-      "is_available": false,
+      "item_price": r["j6pl01"],
+      "unit_of_measure": r.icium,
+      "is_available": r.active,
       "has_purchase_history": false,
-      "is_active": false,
+      "is_active": r.active,
       "vendor_name": "",
       "balance_available":0,
       "error_message": "",
@@ -404,14 +375,43 @@ return "Hellonn" + item;
       "image_ur_ls": "",
       "special_code": "",
       "item_type": "",
-      "error_message": error,
+      "error_message": "",
       "is_agency": false,
       "is_drop_ship": false,
       "is_discontinued": false
+      }});
     }
+    catch(error)
+    {
+      products = {
+        "item_number": "",
+        "item_name": "",
+        "vendor_name": "",
+        "vendor_part_number": "",
+        "msds_code": "",
+        "dea_controlled_substance_code": "",
+        "item_price": "",
+        "unit_of_measure": "",
+        "is_available": false,
+        "has_purchase_history": false,
+        "is_active": false,
+        "vendor_name": "",
+        "balance_available":0,
+        "error_message": "",
+        "next_qty_break": 0,
+        "vendor_name": "",
+        "next_qty_break_price_or_discount": "",
+        "image_ur_ls": "",
+        "special_code": "",
+        "item_type": "",
+        "error_message": error,
+        "is_agency": false,
+        "is_drop_ship": false,
+        "is_discontinued": false
+      }
+    }
+    return products;
   }
-  return products;
-}
 const _hellon = hellon;
 export { _hellon as hellon };
 const _getstockandprice = getstockandprice;
