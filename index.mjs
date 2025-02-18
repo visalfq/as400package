@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 async function hellon(item) {
 return "Hellonn" + item;
 }
