@@ -1,7 +1,9 @@
-async function hellon(item) {
+import pjs from 'profoundjs'
+import moment from 'moment'
+export async function hellomjs(item) {
 return "Hellonn" + item;
 }
-  async function getstockandpricemultipleitems(customernumber,shiptonumber,itemlist,qtylist) {
+   export async function getstockandpricemultipleitems(customernumber,shiptonumber,itemlist,qtylist) {
     var outprice="";
     const items = itemlist.split(","); 
     const qtys = qtylist.split(","); 
@@ -40,64 +42,64 @@ return "Hellonn" + item;
     if(params.Date == null){
       params.Date = moment().format('YYYYMMDD');
     }
-    define("parm1", { type: "char", length: 3 });
-    define("parm2", { type: "char", length: 7 });
-    define("parm3", { type: "char", length: 20 });
-    define("parm4", { type: "char", length: 4 });
-    define("parm5", { type: "char", length: 2 });
-    define("parm6", { type: "char", length: 9 });
-    define("parm7", { type: "char", length: 8 });
-    define("parm8", { type: "char", length: 11 });
+    pjs.define("parm1", { type: "char", length: 3 });
+    pjs.define("parm2", { type: "char", length: 7 });
+    pjs.define("parm3", { type: "char", length: 20 });
+    pjs.define("parm4", { type: "char", length: 4 });
+    pjs.define("parm5", { type: "char", length: 2 });
+    pjs.define("parm6", { type: "char", length: 9 });
+    pjs.define("parm7", { type: "char", length: 8 });
+    pjs.define("parm8", { type: "char", length: 11 });
     
-    define("parm9", { type: "char", length: 11 });
-    define("parm10", { type: "char", length: 11 });
-    define("parm11", { type: "char", length: 3 });
-    define("parm12", { type: "char", length: 3 });
-    define("parm13", { type: "char", length: 1 });
-    define("parm14", { type: "char", length: 15 });
-    define("parm15", { type: "char", length: 1 });
-    define("parm16", { type: "char", length: 1 });
-    define("parm17", { type: "packed decimal", length: 9, decimals: 0 });
-    define("parm18", { type: "packed decimal", length: 3, decimals: 0 });
-    define("parm19", { type: "packed decimal", length: 4, decimals: 0 });
-    define("parm20", { type: "char", length: 3 });
-    define("parm21", { type: "char", length: 1 });
-    define("parm22", { type: "char", length: 1 });
-    define("parm23", { type: "char", length: 20 });
-    define("parm24", { type: "char", length: 3 });
-    define("parm25", { type: "char", length: 7 });
-    define("parm26", { type: "char", length: 11 });
+    pjs.define("parm9", { type: "char", length: 11 });
+    pjs.define("parm10", { type: "char", length: 11 });
+    pjs.define("parm11", { type: "char", length: 3 });
+    pjs.define("parm12", { type: "char", length: 3 });
+    pjs.define("parm13", { type: "char", length: 1 });
+    pjs.define("parm14", { type: "char", length: 15 });
+    pjs.define("parm15", { type: "char", length: 1 });
+    pjs.define("parm16", { type: "char", length: 1 });
+    pjs.define("parm17", { type: "packed decimal", length: 9, decimals: 0 });
+    pjs.define("parm18", { type: "packed decimal", length: 3, decimals: 0 });
+    pjs.define("parm19", { type: "packed decimal", length: 4, decimals: 0 });
+    pjs.define("parm20", { type: "char", length: 3 });
+    pjs.define("parm21", { type: "char", length: 1 });
+    pjs.define("parm22", { type: "char", length: 1 });
+    pjs.define("parm23", { type: "char", length: 20 });
+    pjs.define("parm24", { type: "char", length: 3 });
+    pjs.define("parm25", { type: "char", length: 7 });
+    pjs.define("parm26", { type: "char", length: 11 });
 
-    set("parm1", params["Cmp"]);
-    set("parm2", params["Cust"]);
-    set("parm4", params["Loc"]);
-    set("parm5", params["Bpcd"]);
-    set("parm7", params["Date"]);
-    set("parm9", params["Cost"]);
-    set("parm10", params["Rebt"]);
-    set("parm11", params["Dsc"]);
-    set("parm12", params["Uom"]);
-    set("parm13", params["Cont"]);
-    set("parm14", params["Psrc"]);
-    set("parm15", params["Apric"]);
-    set("parm16", params["In01"]);
-    set("parm17", params["Ord"]);
-    set("parm18", params["Bocd"]);
-    set("parm19", params["Line"]);
-    set("parm20", params["Crcd"]);
-    set("parm21", params["Source"]);
-    set("parm22", params["Pprc"]);
-    set("parm23", params["Kitm"]);
-    set("parm24", params["Kuom"]);
-    set("parm25", params["Shipto"]);
-    set("parm26", params["Cucst"]);
+    pjs.set("parm1", params["Cmp"]);
+    pjs.set("parm2", params["Cust"]);
+    pjs.set("parm4", params["Loc"]);
+    pjs.set("parm5", params["Bpcd"]);
+    pjs.set("parm7", params["Date"]);
+    pjs.set("parm9", params["Cost"]);
+    pjs.set("parm10", params["Rebt"]);
+    pjs.set("parm11", params["Dsc"]);
+    pjs.set("parm12", params["Uom"]);
+    pjs.set("parm13", params["Cont"]);
+    pjs.set("parm14", params["Psrc"]);
+    pjs.set("parm15", params["Apric"]);
+    pjs.set("parm16", params["In01"]);
+    pjs.set("parm17", params["Ord"]);
+    pjs.set("parm18", params["Bocd"]);
+    pjs.set("parm19", params["Line"]);
+    pjs.set("parm20", params["Crcd"]);
+    pjs.set("parm21", params["Source"]);
+    pjs.set("parm22", params["Pprc"]);
+    pjs.set("parm23", params["Kitm"]);
+    pjs.set("parm24", params["Kuom"]);
+    pjs.set("parm25", params["Shipto"]);
+    pjs.set("parm26", params["Cucst"]);
     var pricesval = new Object();
     for (let i = 0; i < items.length; i++) {
-      set("parm3", items[i]);
-      set("parm6", qtys[i]);
-      set("parm8", outprice);
+      pjs.set("parm3", items[i]);
+      pjs.set("parm6", qtys[i]);
+      pjs.set("parm8", outprice);
       call("COGTPRB", refParm("parm1"), refParm("parm2"), refParm("parm3"), refParm("parm4"), refParm("parm5"), refParm("parm6"), refParm("parm7"), refParm("parm8"), refParm("parm9"), refParm("parm10"), refParm("parm11"), refParm("parm12"), refParm("parm13"), refParm("parm14"), refParm("parm15"), refParm("parm16"), refParm("parm17"), refParm("parm18"), refParm("parm19"), refParm("parm20"), refParm("parm21"), refParm("parm22"), refParm("parm23"), refParm("parm24"), refParm("parm25"), refParm("parm26"));
-      outprice = get("parm8");
+      outprice = pjs.get("parm8");
       outprice = (Math.round(outprice * 100) / 1000000).toFixed(2);
       pricesval = new Object();
       pricesval.item_number = items[i];
@@ -127,7 +129,7 @@ return "Hellonn" + item;
     return prices;
   }
 
-  async function getstockandprice(customernumber,shiptonumber,item,qty) {
+  export  async function getstockandprice(customernumber,shiptonumber,item,qty) {
     var outPrice="";
     var customernumber1=customernumber;
     var shiptonumber1=shiptonumber;
@@ -198,40 +200,40 @@ return "Hellonn" + item;
     define("parm26", { type: "char", length: 11 });
     
   
-    set("parm1", params["Cmp"]);
-    set("parm2", params["Cust"]);
-    set("parm3", params["Item"]);
-    set("parm4", params["Loc"]);
-    set("parm5", params["Bpcd"]);
-    set("parm6", params["Qty"]);
-    set("parm7", params["Date"]);
-    set("parm8", outPrice);
+    pjs.set("parm1", params["Cmp"]);
+    pjs.set("parm2", params["Cust"]);
+    pjs.set("parm3", params["Item"]);
+    pjs.set("parm4", params["Loc"]);
+    pjs.set("parm5", params["Bpcd"]);
+    pjs.set("parm6", params["Qty"]);
+    pjs.set("parm7", params["Date"]);
+    pjs.set("parm8", outPrice);
     
-    set("parm9", params["Cost"]);
-    set("parm10", params["Rebt"]);
-    set("parm11", params["Dsc"]);
-    set("parm12", params["Uom"]);
-    set("parm13", params["Cont"]);
-    set("parm14", params["Psrc"]);
-    set("parm15", params["Apric"]);
-    set("parm16", params["In01"]);
-    set("parm17", params["Ord"]);
-    set("parm18", params["Bocd"]);
-    set("parm19", params["Line"]);
-    set("parm20", params["Crcd"]);
-    set("parm21", params["Source"]);
-    set("parm22", params["Pprc"]);
-    set("parm23", params["Kitm"]);
-    set("parm24", params["Kuom"]);
-    set("parm25", params["Shipto"]);
-    set("parm26", params["Cucst"]);
+    pjs.set("parm9", params["Cost"]);
+    pjs.set("parm10", params["Rebt"]);
+    pjs.set("parm11", params["Dsc"]);
+    pjs.set("parm12", params["Uom"]);
+    pjs.set("parm13", params["Cont"]);
+    pjs.set("parm14", params["Psrc"]);
+    pjs.set("parm15", params["Apric"]);
+    pjs.set("parm16", params["In01"]);
+    pjs.set("parm17", params["Ord"]);
+    pjs.set("parm18", params["Bocd"]);
+    pjs.set("parm19", params["Line"]);
+    pjs.set("parm20", params["Crcd"]);
+    pjs.set("parm21", params["Source"]);
+    pjs.set("parm22", params["Pprc"]);
+    pjs.set("parm23", params["Kitm"]);
+    pjs.set("parm24", params["Kuom"]);
+    pjs.set("parm25", params["Shipto"]);
+    pjs.set("parm26", params["Cucst"]);
     call("COGTPRB", refParm("parm1"), refParm("parm2"), refParm("parm3"), refParm("parm4"), refParm("parm5"), refParm("parm6"), refParm("parm7"), refParm("parm8"), refParm("parm9"), refParm("parm10"), refParm("parm11"), refParm("parm12"), refParm("parm13"), refParm("parm14"), refParm("parm15"), refParm("parm16"), refParm("parm17"), refParm("parm18"), refParm("parm19"), refParm("parm20"), refParm("parm21"), refParm("parm22"), refParm("parm23"), refParm("parm24"), refParm("parm25"), refParm("parm26"));
     outPrice = get("parm8");
     outprice = (Math.round(outprice * 100) / 1000000).toFixed(2);
     return outPrice;
   }
 
-  async function getcustomer(companynumber,customernumber)
+  export  async function getcustomer(companynumber,customernumber)
   {
     //returns customer and array of shipto objects
     var lno = 0;
@@ -249,12 +251,13 @@ return "Hellonn" + item;
     lno=1;
     try
     {
-      _record = await data.get(_from, _filter, 1, 0, null, _select);
+      _record = await pjs.data.get(_from, _filter, 1, 0, null, _select);
       lno=2;
       _success = true;
       // If no record found
       if (!_record) {
         lno=9;
+        customerinfo.push({customer_number:"-2",customer_name:"no data",ship_to_number:lno,shipping_addresses:shipinfo});
         _error = new Error("Record not found.")
         _success = false;
       }
@@ -274,7 +277,7 @@ return "Hellonn" + item;
     return customerinfo;
   }
 
-  async function getallitems(pjs1,code,name,pagenumber,numberofrecords)
+  export  async function getallitems(code,name,pagenumber,numberofrecords)
     {
       let products ={};
       try
@@ -350,7 +353,8 @@ return "Hellonn" + item;
       offset ? rows 
       fetch first ? rows only
       `
-      products = pjs1.query(pjs1.getDB("DB2"),sql,
+
+      products = await pjs.query(await pjs.getDB("DB2"),sql,
       params)
       .map(r => {return { 
       "item_number": r.icitem,
@@ -382,8 +386,8 @@ return "Hellonn" + item;
     catch(error)
     {
       products = {
-        "item_number": "",
-        "item_name": "",
+        "item_number": error,
+        "item_name": error,
         "vendor_name": "",
         "vendor_part_number": "",
         "msds_code": "",
@@ -410,13 +414,3 @@ return "Hellonn" + item;
     }
     return products;
   }
-const _hellon = hellon;
-export { _hellon as hellon };
-const _getstockandprice = getstockandprice;
-export { _getstockandprice as getstockandprice };
-const _getstockandpricemultipleitems = getstockandpricemultipleitems;
-export { _getstockandpricemultipleitems as getstockandpricemultipleitems };
-const _getallitems = getallitems;
-export { _getallitems as getallitems };
-const _getcustomer = getcustomer;
-export { _getcustomer as getcustomer };

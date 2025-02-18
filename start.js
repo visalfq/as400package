@@ -7,4 +7,4 @@ async function startPJS() {
   var app = profoundjs.server.app;
   app.use(express.json());
 }
-startPJS();
+await startPJS();
