@@ -276,7 +276,7 @@ return "Hellonn" + item;
     return customerinfo;
   }
 
-  async function getallitems(code,name,pagenumber,numberofrecords)
+  async function getallitems(pjs1,code,name,pagenumber,numberofrecords)
     {
       let products ={};
       try
@@ -352,7 +352,7 @@ return "Hellonn" + item;
       offset ? rows 
       fetch first ? rows only
       `
-      products = pjs.query(pjs.getDB("DB2"),sql,
+      products = pjs1.query(pjs1.getDB("DB2"),sql,
       params)
       .map(r => {return { 
       "item_number": r.icitem,
