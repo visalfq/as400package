@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-async function startPJS() {
+function startPJS() {
   const profoundjs = require("profoundjs");
-  await profoundjs.applyConfig();
-  await profoundjs.server.listen();
+  profoundjs.applyConfig();
+  profoundjs.server.listen();
   var express = profoundjs.server.express;
   var app = profoundjs.server.app;
   app.use(express.json());
 }
-await startPJS();
+ startPJS();

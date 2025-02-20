@@ -285,25 +285,214 @@ return "Hellonn" + item;
     return customerinfo;
   }
 
-  export  async function getallitems(code,name,pagenumber,numberofrecords)
+  
+  async function getProducts() {
+    return await pjs.query("SELECT * FROM vinitem order by ICITEM");
+  }
+
+  export function getProducts1() {
+    pjs.connect("DB2");
+    return pjs.query("SELECT * FROM vinitem order by ICITEM");
+  }
+
+  export function getProducts3() {
+    const t =  pjs.query(pjs.getDB("DB2"), `SELECT * FROM vinitem order by ICITEM`);
+    return t;
+  }
+
+  export async function getProducts4() {
+    const t = await pjs.query(pjs.getDB("DB2"), `SELECT * FROM vinitem order by ICITEM`);
+    return t;
+  }
+
+  export async function getproducts5()
+  {
+    let results = await pjs.data.get(
+      "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm  on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)",
+      {"ICITEM":"012.40014.2"},
+      "ICITEM"
+    );
+    return results;
+  }
+
+  export function getproducts6()
+  {
+    let results = pjs.data.get(
+      "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm  on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)",
+      {"ICITEM":"012.40014.2"},
+      "ICITEM"
+    );
+    return results;
+  }
+
+  export function getproducts7()
+  {
+    return pjs.data.get(
+      "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm  on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)",
+      {"ICITEM":"012.40014.2"},
+      "ICITEM"
+    );
+  }
+
+
+  export async function getallitems(code,name,pagenumber,numberofrecords)
+  {
+    var _success = false;
+    var _error = null;
+    let products ={};
+    let lineno=0;
+    var  sql ="";
+    var  params = [];
+    var _record = null;
+    try
     {
-      let products ={};
-      try
-      {
-        const codes = (code??[])
-        .reduce((a,c)=>{
-          a.push(... c.split(",").map(c=>c.trim()));
-          return a;
-        }, []);
-      const names = (name??[])
-        .reduce((a, n)=>{
-          a.push(... n.split(",").map(n=>n.trim()));
-          return a;
-        }, []);
       const page = (pagenumber??1) -1;
       const limit = numberofrecords??100;
+      const namesLike = [];
+      var _from = "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum) ";
+
+      const codes = (code??[])
+      .reduce((a,c)=>{
+        a.push(... c.split(",").map(c=>c.trim()));
+        return a;
+      }, []);
+      const names = (name??[])
+      .reduce((a, n)=>{
+        a.push(... n.split(",").map(n=>n.trim()));
+        return a;
+      }, []);
+
+      var wherec = "";
+      var wherecode = "";
+      var wherename = "";
+
+      wherec = "it.ICDEL = ?";//"it.ICDEL = 'A'";
+
+      if(codes.length>0)
+      {
+        wherecode = codes.map(item => `'${item}'`).join(',');
+        wherec = wherec + ' and ' + '(it.ICITEM in (' +  wherecode +  '))';
+      }
+
+
+      if(names.length>0)
+        {
+          namesLike.push(" ( 1 = 2 ");
+          const search = names
+            .map(n=>`%${n.trim().toLowerCase()}%`);
+          search.forEach((n=>{
+            namesLike.push(` or lower(it.ICDSC1 || it.ICDSC2 || it.ICDSC3) like ` + "'" +   n + "'")
+          }));
+          namesLike.push(")");
+          wherec = wherec + ' and ' + namesLike.join("");
+        }
+
+      var _filter = { 
+      whereClause: wherec,
+      values: ["A"]
+      };
+
+     
+      lineno=1;
+      var _select = `it.ICCMP,  it.ICITEM, it.ICDEL,  it.ICDSC1, it.ICDSC2, it.ICDSC3, it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name, it.ICDIV,  it.ICCLS,  it.ICSPCE,
+            it.ICIUM, it.ICSUM,
+          case 
+            when it.ICDEL = 'A' then 'true'
+            else 'false'
+          end as active,
+          ifnull(cat.rndcnm,' ') as category,
+          case
+            when ifnull(iex.expre,' ') = ' ' then 'Standard'
+            else 'Medication'
+          end as type,
+          ifnull(pm.j6pl01, 0) as J6PL01,
+          ifnull(@fupn, ' ') as FUPN`;
+      lineno =2;
+      _record = await pjs.data.get(_from, _filter, limit, page, null, _select);
+      lineno =3;
+      return _record;
+    }
+    catch (error)
+    {
+      return lineno + ',' +  error.message;
+    }
+
+  }
+
+
+  export async function getallitemsworking(code,name,pagenumber,numberofrecords)
+  {
+    var _success = false;
+    var _error = null;
+    let products ={};
+    let lineno=0;
+    var  sql ="";
+    var  params = [];
+    var _record = null;
+    try
+    {
+      const page = (pagenumber??1) -1;
+      const limit = numberofrecords??100;
+       
+      var _from = "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum) ";
+      var _filter = { 
+      whereClause: "it.ICDEL = ? and it.ICITEM in (?) and it.ICDSC1 in (?)",
+      values: ["A",code,name]
+      };
+
+
+
       
-      const params = [];
+      lineno=1;
+      var _select = `it.ICCMP,  it.ICITEM, it.ICDEL,  it.ICDSC1, it.ICDSC2, it.ICDSC3, it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name, it.ICDIV,  it.ICCLS,  it.ICSPCE,
+            it.ICIUM, it.ICSUM,
+          case 
+            when it.ICDEL = 'A' then 'true'
+            else 'false'
+          end as active,
+          ifnull(cat.rndcnm,' ') as category,
+          case
+            when ifnull(iex.expre,' ') = ' ' then 'Standard'
+            else 'Medication'
+          end as type,
+          ifnull(pm.j6pl01, 0) as J6PL01,
+          ifnull(@fupn, ' ') as FUPN`;
+      lineno =2;
+      _record = await pjs.data.get(_from, _filter, limit, page, null, _select);
+      lineno =3;
+      return _record;
+    }
+    catch (error)
+    {
+      return lineno + ',' +  error.message;
+    }
+
+  }
+
+  export async function getallitemsback(code,name,pagenumber,numberofrecords)
+  {
+    var _success = false;
+    var _error = null;
+    let products ={};
+    let lineno=0;
+    var  sql ="";
+    var  params = [];
+    var _record = null;
+    try
+    {
+      const codes = (code??[])
+      .reduce((a,c)=>{
+        a.push(... c.split(",").map(c=>c.trim()));
+        return a;
+      }, []);
+      const names = (name??[])
+      .reduce((a, n)=>{
+        a.push(... n.split(",").map(n=>n.trim()));
+        return a;
+      }, []);
+      const page = (pagenumber??1) -1;
+      const limit = numberofrecords??100;
+       
       const namesLike = [];
       const codesIn = [];
       if(names.length){
@@ -314,7 +503,7 @@ return "Hellonn" + item;
           namesLike.push(` or lower(it.ICDSC1 || it.ICDSC2 || it.ICDSC3) like ?`)
         }));
         namesLike.push(")")
-        params.push(...search);
+        params.push(search);
       }
       if(codes.length){
         codesIn.push("and it.ICITEM in (")
@@ -325,57 +514,261 @@ return "Hellonn" + item;
         codesIn.pop();
         codesIn.push(" ?)");
       }
-      params.push(page * limit);
-      params.push(limit);
-      const sql = `
-      select
-      it.ICCMP,  it.ICITEM, it.ICDEL,
-      -- it.ICDSC1, it.ICDSC2, it.ICDSC3,
-      it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name,
-      it.ICDIV,  it.ICCLS,  it.ICSPCE,
-      it.ICIUM, it.ICSUM,
-      case 
-        when it.ICDEL = 'A' then 'true'
-        else 'false'
-      end as active,
-      ifnull(cat.rndcnm,' ') as category,
-      case
-        when ifnull(iex.expre,' ') = ' ' then 'Standard'
-        else 'Medication'
-      end as type,
-      ifnull(pm.j6pl01, 0) as J6PL01,
-      ifnull(@fupn, ' ') as FUPN
-      from   vinitem it                                        
-      left join vardicl cat 
-              on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls)
-      left join viniext iex
-              on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem)
-      left join vinpmat pm 
-              on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem)
-      left join vinupn upn
-              on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)
-      
-      where  it.ICDEL =  'A'
-      ${namesLike.join("")}
-      ${codesIn.join("")}
-      offset ? rows 
-      fetch first ? rows only
-      `
 
-      products = await pjs.query(await pjs.getDB("DB2"),sql,
-      params)
-      .map(r => {return { 
+
+      //var _filter  = pjs.data.createCondition("it.ICDEL", "=", "A");
+      /*if(names.length)
+      {
+        conditions.push(namesLike);
+      }
+      if(codes.length)
+      {
+        conditions.push(codesIn);
+      }
+*/
+
+      var _from = "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) left join viniext iex on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem) left join vinpmat pm on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem) left join vinupn upn on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum) ";
+      var _filter = { 
+        whereClause: "it.ICDEL = ?",
+        values: ["A"]
+      };
+      
+      lineno=1;
+      var _select = `it.ICCMP,  it.ICITEM, it.ICDEL,  it.ICDSC1, it.ICDSC2, it.ICDSC3, it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name, it.ICDIV,  it.ICCLS,  it.ICSPCE,
+            it.ICIUM, it.ICSUM,
+          case 
+            when it.ICDEL = 'A' then 'true'
+            else 'false'
+          end as active,
+          ifnull(cat.rndcnm,' ') as category,
+          case
+            when ifnull(iex.expre,' ') = ' ' then 'Standard'
+            else 'Medication'
+          end as type,
+          ifnull(pm.j6pl01, 0) as J6PL01,
+          ifnull(@fupn, ' ') as FUPN`;
+      lineno =2;
+      _record = await pjs.data.get(_from, _filter, limit, page, null, _select);
+      lineno =3;
+      return _record;
+    }
+    catch (error)
+    {
+      return lineno + ',' +  error.message;
+    }
+
+  }
+
+
+  export async function getproducts8back()
+  {
+    var lno = 0;
+    var _success = false;
+    var _error = null;
+    let customerinfo = [];
+    let shipinfo = [];
+    var _record = null;
+    var _from = "vinitem it  left join vardicl cat  on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls) ";
+    var _filter = { 
+      whereClause: "it.iccmp = ?",
+      values: ["1"]
+    };
+    
+    var _select = "it.iccmp,it.ICDSC1";
+    lno=1;
+    _record = await pjs.data.get(_from, _filter, 10, 1, null, _select);
+    return _record;
+  }
+
+  export function getProducts2() {
+    let filter = [
+      pjs.data.createCondition("ICITEM", "=", "012.40014.2"),
+    ];
+    return  pjs.data.get("vinitem", filter);
+  }
+
+  export  async function getallitems1(code,name,pagenumber,numberofrecords)
+  {
+    let products ={};
+    let lineno=0;
+    var  sql ="";
+    var  params = [];
+    try
+    {
+      const codes = (code??[])
+      .reduce((a,c)=>{
+        a.push(... c.split(",").map(c=>c.trim()));
+        return a;
+      }, []);
+    const names = (name??[])
+      .reduce((a, n)=>{
+        a.push(... n.split(",").map(n=>n.trim()));
+        return a;
+      }, []);
+    const page = (pagenumber??1) -1;
+    const limit = numberofrecords??100;
+    
+    
+    const namesLike = [];
+    const codesIn = [];
+    if(names.length){
+      namesLike.push("and ( 1 = 2 ");
+      const search = names
+        .map(n=>`%${n.trim().toLowerCase()}%`);
+      search.forEach((n=>{
+        namesLike.push(` or lower(it.ICDSC1 || it.ICDSC2 || it.ICDSC3) like ?`)
+      }));
+      namesLike.push(")")
+      params.push(search);
+    }
+    if(codes.length){
+      codesIn.push("and it.ICITEM in (")
+      codes.forEach(c=>{
+        codesIn.push(" ?,");
+        params.push(c);
+      });
+      codesIn.pop();
+      codesIn.push(" ?)");
+    }
+    params.push(page * limit);
+    params.push(limit);
+    sql = `
+    select
+    it.ICCMP,  it.ICITEM, it.ICDEL,
+    -- it.ICDSC1, it.ICDSC2, it.ICDSC3,
+    it.ICDSC1 || it.ICDSC2 || it.ICDSC3 as name,
+    it.ICDIV,  it.ICCLS,  it.ICSPCE,
+    it.ICIUM, it.ICSUM,
+    case 
+      when it.ICDEL = 'A' then 'true'
+      else 'false'
+    end as active,
+    ifnull(cat.rndcnm,' ') as category,
+    case
+      when ifnull(iex.expre,' ') = ' ' then 'Standard'
+      else 'Medication'
+    end as type,
+    ifnull(pm.j6pl01, 0) as J6PL01,
+    ifnull(@fupn, ' ') as FUPN
+    from   vinitem it                                        
+    left join vardicl cat 
+            on (cat.rncmp, cat.rndiv, cat.rnclas) = (it.iccmp, it.icdiv, it.iccls)
+    left join viniext iex
+            on (iex.iccmp, iex.icitem) = (it.iccmp, it.icitem)
+    left join vinpmat pm 
+            on (pm.j6cmp, pm.j6item) = (it.iccmp, it.icitem)
+    left join vinupn upn
+            on (upn.@fcomp, upn.@fitem, upn.@fum) = (it.iccmp, it.icitem, it.icsum)
+    
+    where  it.ICDEL =  'A'
+    ${namesLike.join("")}
+    ${codesIn.join("")}
+    offset ? rows 
+    fetch first ? rows only
+    `
+    lineno=1;
+   
+    lineno=3;
+    products = await bb.map(r => {return { 
+    "item_number": r.icitem,
+    "item_name": r.name,
+    "vendor_name": "",
+    "vendor_part_number": "",
+    "msds_code": "",
+    "dea_controlled_substance_code": "",
+    "item_price": r["j6pl01"],
+    "unit_of_measure": r.icium,
+    "is_available": r.active,
+    "has_purchase_history": false,
+    "is_active": r.active,
+    "vendor_name": "",
+    "balance_available":0,
+    "error_message": "",
+    "next_qty_break": 0,
+    "vendor_name": "",
+    "next_qty_break_price_or_discount": "",
+    "image_ur_ls": "",
+    "special_code": "",
+    "item_type": "",
+    "error_message": "",
+    "is_agency": false,
+    "is_drop_ship": false,
+    "is_discontinued": false
+    }});
+    lineno=4;
+  }
+  catch(error)
+  {
+    products = {
+      "item_number": error.message,
+      "item_name": error.name,
+      "vendor_name": sql,
+      "vendor_part_number": params,
+      "msds_code": "",
+      "dea_controlled_substance_code": lineno,
+      "item_price": "",
+      "unit_of_measure": "",
+      "is_available": false,
+      "has_purchase_history": false,
+      "is_active": false,
+      "vendor_name": "",
+      "balance_available":0,
+      "error_message": "",
+      "next_qty_break": 0,
+      "vendor_name": "",
+      "next_qty_break_price_or_discount": "",
+      "image_ur_ls": "",
+      "special_code": "",
+      "item_type": "",
+      "error_message": error,
+      "is_agency": false,
+      "is_drop_ship": false,
+      "is_discontinued": false
+    }
+  }
+  return products;
+}
+
+
+
+
+  export  async function getallitemscheck(code,name,pagenumber,numberofrecords)
+    {
+      let products ={};
+      let aa="";
+      let lineno=0;
+      let  sql ="";
+      let sql1 = "";
+      let params = [];
+      let namesLike = [];
+      let codesIn = [];
+      let codes =[];
+      let names =[];
+      let page =0;
+      let limit =100;
+
+      try
+      {
+       var _record = null;
+       var _from = "vinitem";
+       var _select = `ICCMP,ICITEM`;
+       _record = await pjs.data.get(_from, null, 100, null, null, _select);
+        return _record;
+
+
+      lineno=3;
+      products = bb.map(r => {return { 
       "item_number": r.icitem,
-      "item_name": r.name,
+      "item_name": r.icitem,
       "vendor_name": "",
       "vendor_part_number": "",
       "msds_code": "",
       "dea_controlled_substance_code": "",
       "item_price": r["j6pl01"],
-      "unit_of_measure": r.icium,
-      "is_available": r.active,
+      "unit_of_measure": r.icitem,
+      "is_available": r.icitem,
       "has_purchase_history": false,
-      "is_active": r.active,
+      "is_active": r.icitem,
       "vendor_name": "",
       "balance_available":0,
       "error_message": "",
@@ -390,18 +783,20 @@ return "Hellonn" + item;
       "is_drop_ship": false,
       "is_discontinued": false
       }});
+      lineno=4;
     }
     catch(error)
     {
+      const sql22 =  'select it.ICCMP, it.ICITEM from vinitem it';
       products = {
         "item_number": error.message,
         "item_name": error.name,
-        "vendor_name": error.stack,
+        "vendor_name": 'sql1;' + sql1,
         "vendor_part_number": "",
         "msds_code": "",
-        "dea_controlled_substance_code": "",
-        "item_price": "",
-        "unit_of_measure": "",
+        "dea_controlled_substance_code": lineno,
+        "item_price": sql22,
+        "unit_of_measure": 'sql;' + sql,
         "is_available": false,
         "has_purchase_history": false,
         "is_active": false,
