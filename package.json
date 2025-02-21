@@ -1,16 +1,16 @@
 {
   "name": "as400package",
-  "version": "1.0.131",
+  "version": "1.0.187",
   "description": "AS 400 package for functions (e.g. GetStockAndPrice)",
   "main": "index.mjs",
   "module": "index.mjs",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./index.mjs"
     }
   },
-    "scripts": {
+  "exclude": ["node_modules"],
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
